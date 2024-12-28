@@ -1,11 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
-import random
 import time
+import random
 
 
 class GetBossData(object):
-    """爬取10页的Boss直聘职位数据"""
+    """爬取Boss直聘职位数据"""
     domain = 'https://www.zhipin.com'
     base_url = 'https://www.zhipin.com/c101280600/?query='
     position = ''
@@ -13,29 +13,34 @@ class GetBossData(object):
     secret_id = "oxf8kld793tnp4g46uw9"
     secret_key = "ejckm7enbhs9i9w3j8g5cg1q2ccno63g"
     api_url = "https://dps.kdlapi.com/api/getdps/"
+    username = "d4455409888"
+    password = "eezl5z2x"
 
     def __init__(self, position):
         self.position = position
         self.valid_proxies = self.update_proxies()  # 动态获取有效代理
 
     def update_proxies(self):
-        """通过API获取代理列表"""
+        """通过API获取代理列表并清理"""
         try:
             params = {
                 "secret_id": self.secret_id,
                 "signature": self.secret_key,
-                "num": 5,  # 获取5个代理
+                "num": 20,  # 获取20个代理
                 "pt": 1,  # HTTP(S) 代理类型
+                "format": "text",
                 "sep": 1  # 换行分隔
             }
             response = requests.get(self.api_url, params=params, timeout=10)
             response.raise_for_status()
+            # 获取代理列表并清理多余字符
             proxy_ips = response.text.strip().split("\n")
             valid_proxies = []
             for proxy_ip in proxy_ips:
+                clean_proxy_ip = proxy_ip.strip().replace("\r", "")  # 去除 `\r`
                 proxy = {
-                    "http": f"http://{proxy_ip}",
-                    "https": f"http://{proxy_ip}"
+                    "http": f"http://{self.username}:{self.password}@{clean_proxy_ip}",
+                    "https": f"http://{self.username}:{self.password}@{clean_proxy_ip}"
                 }
                 valid_proxies.append(proxy)
             print(f"成功获取代理列表: {valid_proxies}")
@@ -66,7 +71,7 @@ class GetBossData(object):
                 return response.content
             except requests.exceptions.RequestException as e:
                 print(f"代理连接失败: {e}")
-                time.sleep(2)  # 等待2秒后重试
+                time.sleep(2)  # 等待 2 秒后重试
         return None
 
     def run(self):

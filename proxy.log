@@ -1,0 +1,5 @@
+ERROR:root:代理 36.150.215.208:31154 不可用: Failed to parse: https://d4455409888:eezl5z2x@36.150.215.208:31154
+ERROR:root:代理 182.106.136.210:30737 不可用: Failed to parse: https://d4455409888:eezl5z2x@182.106.136.210:30737
+ERROR:root:代理 61.184.8.53:30049 不可用: Failed to parse: https://d4455409888:eezl5z2x@61.184.8.53:30049
+ERROR:root:代理 182.106.136.210:31316 不可用: Failed to parse: https://d4455409888:eezl5z2x@182.106.136.210:31316
+ERROR:root:代理 114.231.95.50:15454 不可用: HTTPSConnectionPool(host='dev.kdlapi.com', port=443): Max retries exceeded with url: /testproxy (Caused by ProxyError('Unable to connect to proxy', SSLError(SSLEOFError(8, 'EOF occurred in violation of protocol (_ssl.c:1000)'))))
